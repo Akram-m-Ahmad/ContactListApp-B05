@@ -3,7 +3,12 @@ import Home from "./Pages/Home/Home";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { contacts: [], error: "" };
+    this.state = {
+      contacts: [],
+      error: "",
+      name: "",
+      email: ""
+    };
   }
 
   getContact = async id => {
@@ -12,6 +17,7 @@ class App extends Component {
       contact => contact.id === id
     );
     if (previous_contact) {
+      console.log(previous_contact);
       return; // do nothing, no need to reload a contact we already have
     }
     try {
@@ -138,6 +144,25 @@ class App extends Component {
       this.setState({ error: err });
     }
   };
+
+  onSubmit = async (e)=>{
+    e.preventDefault();
+   const file= e.target.fileField.files[0];
+   console.log(file);
+   const body = new FormData();
+   body.append('image', file);
+   body.append('name', this.state.name);
+   body.append('email', this.state.email);
+   const response = await fetch("http://localhost:8080/testfile", {
+     method:'POST', 
+     body:body
+   });
+   const result = await response.json();
+   console.log(result)
+   // this.createContact({name:this.state.name, email:this.state.email});
+  }
+
+
   async componentDidMount() {
     this.getContactList();
   }
@@ -148,9 +173,23 @@ class App extends Component {
         Contact List:
         <ul>
           {this.state.contacts.map(contact => (
-            <li>{contact.name}</li>
+            <li>
+              {contact.id}-{contact.name}
+            </li>
           ))}
         </ul>
+        <button onClick={() => this.getContactList()}>Reload</button>
+        <button onClick={() => this.getContact(2)}>Get</button>
+        <button onClick={() => this.deleteContact(5)}>Delete</button>
+        <button onClick={() => this.updateContact(4, { name: "a" })}>
+          Update
+        </button>
+        <form onSubmit={this.onSubmit}>
+          <input placeholder="name" value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})}/>
+          <input placeholder="email" value={this.state.email} onChange={(e)=>this.setState({email:e.target.value})}/>
+          <input  type='file' name='fileField'/>
+          <input type="submit" value="ok" />
+        </form>
       </div>
     );
   }

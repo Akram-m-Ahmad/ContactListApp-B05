@@ -1,6 +1,9 @@
 //import {createServer} from 'http';
 import app from "./app";
+import multer from 'multer'
 import initializeDatabase from "./db";
+
+const upload = multer({dest:'uploads/'})
 
 const start = async () => {
   const controller = await initializeDatabase();
@@ -63,6 +66,12 @@ const start = async () => {
       next(err);
     }
   });
+
+  app.post("/testfile",upload.single('image'), async (req, res, next)=>{
+    console.log(req.file)
+    console.log(req.body)
+    res.json({message:'ok'})
+  })
   app.use((err, req, res, next) => {
     res.status(500).json({ success: false, message: err });
   });
