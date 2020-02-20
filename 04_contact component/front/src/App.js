@@ -69,12 +69,13 @@ class App extends Component {
       const { name, email } = props;
 
       if (name && email) {
+        console.log("here", name, email)
         url = `http://localhost:8080/contacts/update/${id}?name=${name}&email=${email}`;
       }
-      if (name) {
+      if (name && !email) {
         url = `http://localhost:8080/contacts/update/${id}?name=${name}`;
       }
-      if (email) {
+      if (email && !name) {
         url = `http://localhost:8080/contacts/update/${id}?email=${email}`;
       }
       const response = await fetch(url);

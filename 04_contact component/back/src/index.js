@@ -59,6 +59,7 @@ const start = async () => {
   app.get("/contacts/update/:id", async (req, res, next) => {
     const { id } = req.params;
     const { name, email } = req.query;
+    console.log(name, email)
     try {
       const result = await controller.updateContact(id, { name, email });
       res.json({ success: true, result });
