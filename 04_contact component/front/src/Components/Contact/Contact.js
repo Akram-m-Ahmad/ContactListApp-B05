@@ -22,15 +22,16 @@ class Contact extends React.Component {
   renderEditMode() {
     return (
         <> <div className="card profile">
-            <form onSubmit={this.onSubmit} onReset={this.toggleMode}>
+            <form onSubmit={this.onSubmit} onReset={()=>this.toggleMode()}>
     <div className="card-header profileName">
+    <p>Name:
     <input
         type="text"
         placeholder="name"
         name="contact_name_input"
         defaultValue={this.props.contact.name}
       />
-
+</p>
     </div>
     <div className="card-body profileBody">
       <div className="profilePic">
@@ -51,8 +52,8 @@ class Contact extends React.Component {
 
         </p>
       </div>
-      <input type="submit" value="ok" />
-        <input type="reset" value="cancel" className="button" />
+      <input className="action-button" type="submit" value="ok" />
+        <input className="action-button" type="reset" value="cancel"/>
 
     </div>
     </form>
@@ -74,8 +75,8 @@ class Contact extends React.Component {
       <div className="profileInfo">
         <p>Email: {this.props.contact.email}</p>
       </div>
-      <button onClick={()=>this.props.deleteContact(this.props.contact.id)}>Delete</button>
-      <button onClick={()=>this.toggleMode()}>Edit</button>
+      <button className="action-button" onClick={()=>this.props.deleteContact(this.props.contact.id)}>Delete</button>
+      <button className="action-button" onClick={()=>this.toggleMode()}>Edit</button>
     </div>
   </div></>);
   }

@@ -22,7 +22,7 @@
   background-color: #444;
   min-width: 200px;
   width: 250px;
-  height: 300px;
+  height: 330px;
   border-radius: 24px;
   border: none;
   box-shadow: 0 37.125px 70px -12.125px rgba(0, 0, 0, 0.2);
@@ -67,7 +67,7 @@
   text-align: center;
   color: #eee;
 }
-.profileInfo {
+.profileInfo, .profileName>p {
   margin-top: 1em;
   font-weight: 200;
   font-size: 12px;
@@ -123,4 +123,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+ .action-button {
+  width: 100px;
+  background: #9f6d95;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: white;
+  border: 0 none;
+  border-radius: 200px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 5px;
+  letter-spacing: 0.08rem;
+}
+ .action-button:hover,
+ .action-button:focus {
+  color: #9f6d95;
+  background: #fff;
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #9f6d95;
 }
